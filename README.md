@@ -1,3 +1,13 @@
+Пример добавления ссылки:
+
+curl -X POST 'localhost:8080/api/link' -d 'link=https://www.example.com' -H 'Accept:application/json'
+Ответ: {"success":true,"shortened_link":"7AiFBh"}
+
+Пример перехода по укороченной ссылке:
+
+localhost:8080/test
+*редиректит на полный url, либо на 404 если укороченную ссылку не удалось найти в базе*
+
 ДЕПЛОЙ:
 
 git clone https://github.com/Romgit29/VekPlus
