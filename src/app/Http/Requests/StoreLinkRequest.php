@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreLinkRequest extends FormRequest
 {
@@ -24,5 +26,12 @@ class StoreLinkRequest extends FormRequest
         return [
             'link' => 'required|url:http,https'
         ];
+    }
+
+    protected function failedValidation(Validator $validator): void { 
+        throw new HttpResponseException(response()->json([
+            'success' => false,
+            'message' => $validator->errors()->first()
+        ], 403)); 
     }
 }
