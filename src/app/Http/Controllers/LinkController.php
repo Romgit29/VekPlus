@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShortLinkRedirectRequest;
 use App\Http\Requests\StoreLinkRequest;
 use App\Services\LinkService;
 
@@ -11,6 +12,15 @@ class LinkController extends Controller
     
     public function __construct(LinkService $linkService) {
         $this->linkService = $linkService;
+    }
+
+    public function shortLinkRedirect(string $shortLink) {
+        $url = $this->linkService->getFullUrl($shortLink);
+        if($url) {
+            return redirect()->to($url);
+        } else {
+            abort(404);
+        }
     }
 
     public function store(StoreLinkRequest $request) {

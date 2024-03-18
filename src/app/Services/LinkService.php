@@ -15,6 +15,13 @@ class LinkService {
         return $link->shortened_link;
     }
 
+    public function getFullUrl(string $shortLink): bool|string {
+        $link = Link::where('shortened_link', $shortLink)->first();
+        if(!$link) return false;
+
+        return $link->link;
+    }
+
     private function getShortenedLink() {
         do
         {
